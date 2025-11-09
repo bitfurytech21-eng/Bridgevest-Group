@@ -1,158 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>BridgeVest Global — Building Wealth, Securing Futures</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
-:root {
-  --blue:#0b66ff;
-  --navy:#003399;
-  --white:#ffffff;
-  --light:#eaf2ff;
-  --muted:#dbe7ff;
+:root{
+  --blue-900:#032b5b;
+  --blue-700:#0b4a8a;
+  --blue-500:#1f73b7;
+  --accent:#ffd166;
+  --muted:#6b7280;
+  --radius:12px;
+  font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
 }
-*{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",Roboto,sans-serif}
-body{background:var(--light);color:var(--navy);scroll-behavior:smooth;}
-header{position:sticky;top:0;z-index:99;background:var(--blue);display:flex;justify-content:space-between;align-items:center;padding:12px 16px;flex-wrap:wrap;}
-header .brand{font-size:22px;font-weight:700;color:var(--white);}
-header nav a{color:var(--white);margin:0 10px;text-decoration:none;font-weight:600;}
-header nav a:hover{text-decoration:underline;}
-header select{padding:6px 10px;border-radius:6px;border:none;color:var(--navy);}
-
-.hero{height:90vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#0b66ff,#3f9bff);}
-.hero-content{position:relative;text-align:center;max-width:600px;color:white;animation:fadeIn 1.5s ease forwards;}
-.hero-content h1{font-size:32px;margin-bottom:12px;opacity:0;animation:fadeText 1s forwards 0.5s;}
-.hero-content p{font-size:18px;margin-bottom:20px;opacity:0;animation:fadeText 1s forwards 1s;}
-.hero-content button{margin:5px;padding:12px 20px;font-weight:600;border-radius:8px;border:none;cursor:pointer;transition:0.3s;}
-.hero-content button:first-child{background:var(--white);color:var(--navy);}
-.hero-content button:last-child{background:transparent;color:white;border:2px solid white;}
-.hero-content button:hover{opacity:0.85;}
-
-@keyframes fadeIn {from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeText {from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-
-.section{padding:60px 20px;max-width:1100px;margin:auto;position:relative;}
-.section h2{color:var(--navy);margin-bottom:20px;text-align:center;}
-.section p{color:#333;text-align:center;margin-bottom:20px;line-height:1.6;}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:20px;}
-.card{background:var(--white);color:var(--navy);border-radius:12px;padding:16px;box-shadow:0 4px 15px rgba(0,0,0,0.1);text-align:center;transition:transform 0.3s;}
-.card:hover{transform:translateY(-5px);}
-.card h3{color:var(--blue);margin-bottom:8px;}
-.card p{margin-bottom:8px;}
-.card .cta-btn{margin-top:8px;background:var(--blue);color:white;padding:8px 12px;border-radius:6px;cursor:pointer;font-weight:600;transition:0.3s;border:none;}
-.card .cta-btn:hover{background:#074ac1;}
-
-.board-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;text-align:center;margin-top:20px;}
-.board-grid img{width:100px;height:100px;border-radius:50%;object-fit:cover;margin-bottom:8px;transition:transform 0.3s;}
-.board-grid img:hover{transform:scale(1.05);}
-.board-grid h3{font-size:16px;margin-bottom:4px;}
-.board-grid p{font-size:14px;color:#555;}
-
-form{max-width:400px;margin:auto;background:var(--white);color:var(--navy);padding:16px;border-radius:12px;box-shadow:0 4px 10px rgba(0,0,0,0.1);}
-form input{width:100%;padding:10px;margin-bottom:12px;border-radius:6px;border:1px solid #ccd9ff;}
-form button{width:100%;padding:10px;background:var(--blue);color:white;border:none;border-radius:6px;cursor:pointer;}
-
-.floating-chat{position:fixed;bottom:20px;right:20px;background:var(--blue);color:#fff;padding:12px 16px;border-radius:50px;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);z-index:100;transition:0.3s;}
-.floating-chat:hover{transform:scale(1.1);}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  background:linear-gradient(180deg,#eaf4ff,#ffffff);
+  color:#083042;
+  line-height:1.5;
+}
+a{color:var(--blue-700);text-decoration:none;}
+img, video{max-width:100%;border-radius:var(--radius);}
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 16px;background:linear-gradient(90deg, rgba(255,255,255,0.25), rgba(255,255,255,0.12));
+  border-bottom:1px solid rgba(10,20,30,0.05);position:sticky;top:0;backdrop-filter:blur(6px);z-index:50;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--blue-900);}
+.brand .logo{width:40px;height:40px;border-radius:var(--radius);background:linear-gradient(135deg,var(--blue-700),var(--blue-500));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;}
+.lang-select{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--blue-900);}
+.auth-actions{display:flex;gap:8px;align-items:center;}
+.btn{
+  background:var(--blue-700);color:white;padding:10px 14px;border-radius:var(--radius);
+  border:0;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(15,60,120,0.12);
+}
+.btn.ghost{background:transparent;color:var(--blue-700);border:1px solid rgba(15,60,120,0.08);box-shadow:none;}
+.hero{display:flex;flex-direction:column;gap:20px;padding:20px;}
+.hero h1{font-size:26px;color:var(--blue-900);line-height:1.2;}
+.hero p{color:var(--muted);font-size:15px;}
+.hero-card, .card{background:white;border-radius:var(--radius);padding:16px;margin-top:12px;box-shadow:0 6px 20px rgba(10,30,60,0.04);}
+.hero-visual{width:100%;height:180px;background-image:url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=800');background-size:cover;background-position:center;border-radius:var(--radius);}
+section{padding:24px 16px;}
+h2,h3,h4{margin-bottom:10px;}
+.grid-3{display:grid;grid-template-columns:1fr;gap:16px;}
+.programs{display:grid;grid-template-columns:1fr;gap:16px;}
+input,select{padding:10px;border-radius:8px;border:1px solid rgba(10,20,30,0.1);}
+small, .small{font-size:12px;color:var(--muted);}
+@media(min-width:600px){.grid-3,.programs{grid-template-columns:1fr 1fr;}}
+@media(min-width:900px){.grid-3,.programs{grid-template-columns:1fr 1fr 1fr;}}
+footer{padding:16px;text-align:center;font-size:12px;color:var(--muted);}
+.modal-backdrop{position:fixed;inset:0;background:rgba(3,12,25,0.45);display:none;align-items:center;justify-content:center;z-index:100;}
+.modal{background:white;border-radius:var(--radius);padding:16px;width:90%;max-width:360px;box-shadow:0 30px 70px rgba(3,20,40,0.2);}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="brand">🌍 BridgeVest Global</div>
-  <nav>
-    <a href="#hero">Home</a>
-    <a href="#about">About</a>
-    <a href="#how">How It Works</a>
-    <a href="#board">Board</a>
-    <a href="#login">Login</a>
-  </nav>
-  <select>
-    <option>English</option>
-    <option>French</option>
-    <option>Spanish</option>
-    <option>Chinese</option>
-    <option>Arabic</option>
-  </select>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div class="brand">
+      <div class="logo">BV</div>
+      <div>
+        <div style="font-size:14px">BridgeVest Global</div>
+        <div class="small muted">Building Wealth, Securing Futures</div>
+      </div>
+    </div>
+    <div class="lang-select">
+      🌐
+      <select id="langSelect">
+        <option>English</option>
+        <option>French</option>
+        <option>Spanish</option>
+        <option>Chinese</option>
+        <option>Arabic</option>
+      </select>
+    </div>
+  </div>
+  <div class="auth-actions">
+    <button class="btn ghost" id="btnLogin">Login</button>
+    <button class="btn" id="btnRegister">Create Account</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div>
+    <div style="display:flex;gap:6px;align-items:center;margin-bottom:6px">
+      <div style="background:var(--accent);padding:4px 8px;border-radius:999px;font-weight:700;color:#07324a;font-size:12px;">New</div>
+      <div class="small muted">Agriculture & Real Estate investments</div>
+    </div>
+    <h1>Your Bridge to Smarter Investments through Agriculture, Real Estate, and Beyond.</h1>
+    <p>Invest in verified agricultural and real estate ventures powered by transparency and innovation.</p>
+    <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+      <button class="btn" id="ctaLogin">Login</button>
+      <button class="btn ghost" id="ctaCreate">Create Account</button>
+    </div>
+    <div class="hero-card">
+      <strong>How it works</strong>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+        <div><span class="small muted">Step 1:</span> Register an account</div>
+        <div><span class="small muted">Step 2:</span> Fund your account</div>
+        <div><span class="small muted">Step 3:</span> Choose a plan & invest</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-visual"></div>
 </header>
 
-<section id="hero" class="hero">
-  <div class="hero-content">
-    <h1>Building Wealth, Securing Futures</h1>
-    <p>Smarter investments in Agriculture & Real Estate, powered by technology, transparency & global opportunities.</p>
-    <button onclick="scrollToSection('register')">Create Account</button>
-    <button onclick="scrollToSection('login')">Login</button>
+<!-- ABOUT -->
+<section id="about">
+  <h2>About BridgeVest Global</h2>
+  <p class="muted">BridgeVest Global is a diversified asset management company transforming agriculture and real estate into transparent, high-yielding opportunities through a professional, technology-driven ecosystem. Our integrated model merges human expertise, AI forecasting, and blockchain transparency.</p>
+  <p class="small muted"><strong>Vision:</strong> Make agriculture and real estate the world’s most accessible, trusted, and profitable investment classes.<br>
+  <strong>Mission:</strong> Bridge people from capital to opportunity through innovation, integrity, and expert management.<br>
+  <strong>Motto:</strong> “Building Wealth, Securing Futures.”</p>
+</section>
+
+<!-- VIDEO EXPLANATION -->
+<section id="video">
+  <h2>Learn More About BridgeVest Global</h2>
+  <video controls preload="metadata" poster="https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=60&w=400">
+    <source src="videos/bridgevest_480.mp4" type="video/mp4" media="(max-width:480px)">
+    <source src="videos/bridgevest_720.mp4" type="video/mp4" media="(max-width:768px)">
+    <source src="videos/bridgevest_1080.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+</section>
+
+<!-- BOARDS OF DIRECTORS -->
+<section id="boards">
+  <h2>Board of Directors</h2>
+  <div class="grid-3">
+    <div class="card"><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Director 1"><h4>Donald Johnson</h4><div class="small muted">CEO</div></div>
+    <div class="card"><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Director 2"><h4>Janeth Smith</h4><div class="small muted">CFO</div></div>
+    <div class="card"><img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Director 3"><h4>Michael Leonard</h4><div class="small muted">Accounting Officer</div></div>
   </div>
 </section>
 
-<section id="about" class="section">
-  <h2>Why BridgeVest?</h2>
-  <p>We transform Agriculture and Real Estate into globally accessible investment opportunities through technology, AI forecasting, and blockchain transparency. Our goal is to connect your capital with real, income-generating assets while keeping it secure and profitable.</p>
-  <div class="cards">
+<!-- DOCUMENTS -->
+<section id="documents">
+  <h2>Company Documents & Certificates</h2>
+  <div class="grid-3">
+    <div class="card"><strong>Certificate of Incorporation</strong><br><a href="#">View / Download</a></div>
+    <div class="card"><strong>Investment License</strong><br><a href="#">View / Download</a></div>
+    <div class="card"><strong>Regulatory Compliance Docs</strong><br><a href="#">View / Download</a></div>
+  </div>
+</section>
+
+<!-- INVESTMENTS -->
+<section id="investments">
+  <h3>Our Best Investments</h3>
+  <div class="grid-3">
     <div class="card">
-      <h3>Trusted & Transparent</h3>
-      <p>Registered under international investment bodies and using blockchain verification to ensure security and trust.</p>
-      <button class="cta-btn" onclick="scrollToSection('register')">Get Started</button>
+      <h4>Agriculture Investment</h4>
+      <p class="muted">Structured participation across global agricultural value chains. Invest without being on the farm.</p>
+      <button class="btn" onclick="backendCall('AgriViewPlans')">View Plans</button>
+      <button class="btn ghost" onclick="backendCall('AgriRentLand')">Rent a Land</button>
     </div>
     <div class="card">
-      <h3>Global Expertise</h3>
-      <p>Our team of experts uses advanced AI and market analysis to identify high-growth opportunities worldwide.</p>
-      <button class="cta-btn" onclick="scrollToSection('register')">Create Account</button>
+      <h4>Real Estate Investment</h4>
+      <p class="muted">Join global real estate projects from leasing to estate development without hands-on management.</p>
+      <button class="btn" onclick="backendCall('RealEstatePlans')">View Plans</button>
+      <button class="btn ghost" onclick="backendCall('RentBuild')">Rent & Build</button>
     </div>
     <div class="card">
-      <h3>Flexible & Accessible</h3>
-      <p>BridgeVest connects everyday investors to premium real estate and agricultural projects without onsite management.</p>
-      <button class="cta-btn" onclick="scrollToSection('register')">Join Now</button>
+      <h4>Commodity & Property Indices</h4>
+      <canvas id="commodityChart" height="150"></canvas>
+      <canvas id="propertyChart" height="150" style="margin-top:8px;"></canvas>
     </div>
   </div>
 </section>
 
-<section id="how" class="section">
-  <h2>How It Works</h2>
-  <div class="cards">
-    <div class="card"><h3>Step 1</h3><p>Register your account to unlock investment opportunities.</p></div>
-    <div class="card"><h3>Step 2</h3><p>Fund your account securely via multiple channels.</p></div>
-    <div class="card"><h3>Step 3</h3><p>Choose your preferred investment plan after registration.</p></div>
-    <div class="card"><h3>Step 4</h3><p>Watch your investments grow with full transparency.</p></div>
+<!-- PROGRAMS -->
+<section id="programs">
+  <h3>Programs & Initiatives</h3>
+  <div class="programs">
+    <div class="card"><strong>Investor Referral</strong><div class="small muted">Earn commission for every referral.</div></div>
+    <div class="card"><strong>BridgeVest Partner</strong><div class="small muted">Collaborate worldwide.</div></div>
+    <div class="card"><strong>Learn & Earn</strong><div class="small muted">Grow knowledge & earn rewards.</div></div>
   </div>
 </section>
 
-<section id="board" class="section">
-  <h2>Our Board of Directors</h2>
-  <div class="board-grid">
-    <div><img src="https://randomuser.me/api/portraits/men/32.jpg" alt="A. Johnson"><h3>A. Johnson</h3><p>Chairman</p></div>
-    <div><img src="https://randomuser.me/api/portraits/men/65.jpg" alt="M. Laurent"><h3>M. Laurent</h3><p>CEO</p></div>
-    <div><img src="https://randomuser.me/api/portraits/men/12.jpg" alt="S. van Dijk"><h3>S. van Dijk</h3><p>CFO</p></div>
-    <div><img src="https://randomuser.me/api/portraits/women/44.jpg" alt="L. Rodriguez"><h3>L. Rodriguez</h3><p>COO</p></div>
+<!-- NEWSLETTER -->
+<section id="newsletter">
+  <h3>Stay Ahead with Updates</h3>
+  <input id="newsletterEmail" type="email" placeholder="Enter Email" style="width:70%;margin-top:6px;">
+  <button class="btn" onclick="backendCall('SubscribeNewsletter', document.getElementById('newsletterEmail').value)">Subscribe</button>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h4>Contact Us</h4>
+  <p class="small muted">support@bridgevestglobal.com<br>WhatsApp: Direct Investor Line</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  © 2019–2025 BridgeVest Global. All Rights Reserved. Licensed & Certified.
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal" id="modalContent">
+    <div id="modalInner"></div>
   </div>
-</section>
-
-<section id="login" class="section">
-  <h2>Login</h2>
-  <p style="text-align:center;color:#555">Access your personalized investor dashboard immediately after login.</p>
-  <form onsubmit="event.preventDefault();alert('Demo Login Successful!')">
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
-</section>
-
-<section id="register" class="section">
-  <h2>Create an Account</h2>
-  <p style="text-align:center;color:#555">Register now to unlock real investment opportunities in Agriculture & Real Estate.</p>
-  <form onsubmit="event.preventDefault();alert('Demo Account Created!')">
-    <input type="text" placeholder="Full Name" required>
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Password" required>
-    <button type="submit">Create Account</button>
-  </form>
-</section>
-
-<div class="floating-chat" onclick="alert('Connect to BridgeVest Support')">💬 Chat</div>
+</div>
 
 <script>
-function scrollToSection(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+const modalBackdrop=document.getElementById('modalBackdrop');
+const modalInner=document.getElementById('modalInner');
+
+function backendCall(action,payload=null){
+  console.log('Backend call:',action,payload);
+  alert('Simulated backend call: '+action+(payload?(' - '+payload):''));
+}
+
+function openModal(type='login'){
+  if(type==='login'){
+    modalInner.innerHTML=`
+      <h3>Login</h3>
+      <div><label class="small">Email</label><input id="loginEmail" type="email"></div>
+      <div><label class="small">Password</label><input id="loginPass" type="password"></div>
+      <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:6px;">
+        <button class="btn ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn" onclick="backendCall('Login',{email:document.getElementById('loginEmail').value})">Sign In</button>
+      </div>
+    `;
+  } else {
+    modalInner.innerHTML=`
+      <h3>Create Account</h3>
+      <div><label class="small">Full Name</label><input id="regName" type="text"></div>
+      <div><label class="small">Email</label><input id="regEmail" type="email"></div>
+      <div><label class="small">Password</label><input id="regPass" type="password"></div>
+      <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:6px;">
+        <button class="btn ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn" onclick="backendCall('Register',{name:document.getElementById('regName').value,email:document.getElementById('regEmail').value})">Create Account</button>
+      </div>
+    `;
+  }
+  modalBackdrop.style.display='flex';
+}
+function closeModal(){modalBackdrop.style.display='none';}
+
+document.getElementById('btnLogin').addEventListener('click',()=>openModal('login'));
+document.getElementById('btnRegister').addEventListener('click',()=>openModal('register'));
+document.getElementById('ctaLogin').addEventListener('click',()=>openModal('login'));
+document.getElementById('ctaCreate').addEventListener('click',()=>openModal('register'));
+
+// CHARTS
+const ctx1=document.getElementById('commodityChart').getContext('2d');
+new Chart(ctx1,{type:'line',data:{labels:['Oct28','Oct29','Oct30','Oct31','Nov1'],datasets:[{label:'Maize',data:[250,245,251,255,258],borderColor:'#1f73b7',tension:0.3,fill:false},{label:'Cocoa',data:[1230,1245,1220,1210,1205],borderColor:'#0b4a8a',tension:0.3,fill:false}]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+const ctx2=document.getElementById('propertyChart').getContext('2d');
+new Chart(ctx2,{type:'bar',data:{labels:['Q1','Q2','Q3','Q4'],datasets:[{label:'Urban Index Growth',data:[2.1,3.2,2.8,3.5]}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v+'%'}}}}});
 </script>
 
 </body>
